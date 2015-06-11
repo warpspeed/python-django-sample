@@ -4,7 +4,22 @@
 
 ## Vagrant Development Environment
 
-This guide assumes that you are using the WarpSpeed Vagrant development environment. Doing so will help you follow best practices and keep your development and production environments as similar as possible. If you are not using WarpSpeed Vagrant, ignore the sections that involve using the VM.
+This guide assumes that you are using the WarpSpeed Vagrant development environment. Doing so will help you follow best practices and keep your development and production environments as similar as possible.
+
+Throughout this guide commands will need to be run either from within your Virtual Machine (VM) or your local machine environment (outside the VM). Each set of commands will be clearly marked regarding where they should be run. Anytime you need to access your WarpSpeed Vagrant VM, perform the following:
+
+```
+# RUN THESE COMMANDS ON YOUR LOCAL MACHINE
+
+# open a terminal and cd to your warpspeed-vagrant directory
+cd ~/warpspeed-vagrant
+
+# make sure your VM is running
+vagrant up
+
+# SSH into your VM
+vagrant ssh
+```
 
 ## Fork and Clone the Sample Project
 
@@ -12,12 +27,15 @@ The best way to begin using this project is to fork the repository to your own G
 
 Once you have forked the repository, you can clone it to your development environment or use pull-deploy to deploy it directly to a server configured with WarpSpeed.io.
 
-Ideally, you should be using the WarpSpeed Vagrant development environment. The instructions below will assume this, although it isn't necessary if you already have a python environment set up.
-
-To clone the repository to your local machine (not in your VM), use the following command:
+To clone the repository to your local machine (not in your VM), perform the following:
 
 ```
+# RUN THESE COMMANDS ON YOUR LOCAL MACHINE
+
+# access your Sites directory
 cd ~/Sites
+
+# clone the forked repository, specifying a name for the directory
 git clone git@github.com:YOUR_USERNAME/python-django-sample.git warpspeed-django.dev
 ```
 
@@ -26,13 +44,9 @@ git clone git@github.com:YOUR_USERNAME/python-django-sample.git warpspeed-django
 The sample project uses a MySQL database. This can easily be swapped with an SQLite or PostgreSQL database. To create a MySQL database and user with WarpSpeed, do the following:
 
 ```
-# SSH into your VM
-# cd to your warpspeed-vagrant directory
-# and ssh into your VM
-cd ~/warpspeed-vagrant
-vagrant ssh
+# RUN THESE COMMANDS IN YOUR VM
 
-# then, run the db creation command
+# run the db creation command
 warpspeed mysql:db tasks_db tasks_user password123
 ```
 
@@ -40,14 +54,10 @@ This will create a database named "tasks\_db" along with a user, "tasks\_user", 
 
 ## Create a WarpSpeed Site
 
-We need to create the appropriate server configuration files to run the site. To configure Nginx and Passenger to run your site, perform the following:
+We need to create the appropriate server configuration files to run the site. To configure Nginx and Passenger, perform the following:
 
 ```
-# if you aren't already in your VM then...
-# cd to your warpspeed-vagrant directory
-# and ssh into your VM
-cd ~/warpspeed-vagrant
-vagrant ssh
+# RUN THESE COMMANDS IN YOUR VM
 
 # then, run the site creation command
 # notice that --force is used because the site directory already exists
@@ -61,11 +71,7 @@ Creating a virtual environment will isolate the libraries for one project from a
 To create a virtual environment, perform the following:
 
 ```
-# if you aren't already in your VM then...
-# cd to your warpspeed-vagrant directory
-# and ssh into your VM
-cd ~/warpspeed-vagrant
-vagrant ssh
+# RUN THESE COMMANDS IN YOUR VM
 
 # make sure you are in the proper site directory
 cd ~/sites/warpspeed-django.dev
@@ -85,11 +91,7 @@ The Django app needs certain configuration settings that are sensitive, such as 
 Phusion Passenger is used to host your Python site via Nginx. In order to get environment variables to be picked up by Passenger, we need to modify the Nginx configuration file for your site. We also need Passenger to use the virtual environment we created earlier. Perform the following:
 
 ```
-# if you aren't already in your VM then...
-# cd to your warpspeed-vagrant directory
-# and ssh into your VM
-cd ~/warpspeed-vagrant
-vagrant ssh
+# RUN THESE COMMANDS IN YOUR VM
 
 # open the nginx site configuration file
 sudo nano /etc/nginx/sites-available/warpspeed-django.dev
@@ -105,18 +107,16 @@ passenger_env_var DB_USER tasks_user;
 passenger_env_var DB_PASS password123;
 passenger_env_var SECRET_KEY YOUR_SECRET_KEY_HERE;
 passenger_env_var DEBUG_MODE True;
+
+# save and exit
 ```
 
 ### Configure Bash Environment
 
-In addition to making your environment variables accessible to command run at the command line, you will also need to modify either your "~/.bashrc" or your "~/sites/warpspeed-django.dev/env/bin/activate" file. We recommend using modifying the virtualenv activation file because it keeps your settings specific to this project. Perform the following:
+In addition to making your environment variables accessible to Passenger, we also want them to be available via commands run at the command line. To do this, you will need to modify either your "~/.bashrc" or your "~/sites/warpspeed-django.dev/env/bin/activate" file. We recommend modifying the virtualenv activation file because it keeps your settings specific to this project. Perform the following:
 
 ```
-# if you aren't already in your VM then...
-# cd to your warpspeed-vagrant directory
-# and ssh into your VM
-cd ~/warpspeed-vagrant
-vagrant ssh
+# RUN THESE COMMANDS IN YOUR VM
 
 # open your virtualenv activation file
 nano ~/sites/warpspeed-django.dev/env/bin/activate
@@ -127,6 +127,8 @@ export DB_USER=tasks_user
 export DB_PASS=password123
 export SECRET_KEY="YOUR_SECRET_KEY_HERE"
 export DEBUG_MODE=True
+
+# save and exit
 ```
 
 Now, whenever you activate your virtualenv, all of your applications environment variables will be available so you can do things like run migrations, etc.
@@ -136,11 +138,7 @@ Now, whenever you activate your virtualenv, all of your applications environment
 We need to install the django dependencies into our virtual environent and run our database migrations to create the required tables. To do so, perform the following:
 
 ```
-# if you aren't already in your VM then...
-# cd to your warpspeed-vagrant directory
-# and ssh into your VM
-cd ~/warpspeed-vagrant
-vagrant ssh
+# RUN THESE COMMANDS IN YOUR VM
 
 # make sure you are in the proper site directory
 cd ~/sites/warpspeed-django.dev
@@ -165,6 +163,8 @@ If the migrations do not run successfully, it is likely that you have not config
 To access your new Django site, you will need to add an entry to the hosts file on your machine (not in your VM). To do so, perform the following:
 
 ```
+# RUN THESE COMMANDS ON YOUR LOCAL MACHINE
+
 # open a terminal and run the following command (for Mac)
 sudo nano /etc/hosts
 
@@ -181,11 +181,7 @@ Now, whenever you access "warpspeed-django.dev" in your web browser, you will be
 Finally, we need to reload the site configuration to make all of the changes we made take effect. Perform the following:
 
 ```
-# if you aren't already in your VM then...
-# cd to your warpspeed-vagrant directory
-# and ssh into your VM
-cd ~/warpspeed-vagrant
-vagrant ssh
+# RUN THESE COMMANDS IN YOUR VM
 
 # reload the site configuration
 warpspeed site:reload warpspeed-django.dev
@@ -198,11 +194,7 @@ Now, you can access http://warpspeed-django.dev on your machine to view the site
 If you have issues and need to troubleshoot, you should view the Nginx log file for clues. To do so, perform the following:
 
 ```
-# if you aren't already in your VM then...
-# cd to your warpspeed-vagrant directory
-# and ssh into your VM
-cd ~/warpspeed-vagrant
-vagrant ssh
+# RUN THESE COMMANDS IN YOUR VM
 
 # open the nginx error log
 sudo nano /var/log/nginx/error.log
@@ -213,11 +205,7 @@ sudo nano /var/log/nginx/error.log
 To access the Django admin site, you first need to create an admin user. To do so, perform the following:
 
 ```
-# if you aren't already in your VM then...
-# cd to your warpspeed-vagrant directory
-# and ssh into your VM
-cd ~/warpspeed-vagrant
-vagrant ssh
+# RUN THESE COMMANDS IN YOUR VM
 
 # make sure you are in the proper site directory
 cd ~/sites/warpspeed-django.dev

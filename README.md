@@ -149,7 +149,7 @@ source env/bin/activate
 # install django and other dependencies
 pip install django mysql-python
 
-# run you database migrations
+# run the database migrations
 python manage.py migrate
 
 # when you are done with your virtualenv you can run

@@ -17,8 +17,10 @@ Including another URLconf
 
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.http import HttpResponseRedirect
 
 urlpatterns = [
+    url(r'^$', lambda r: HttpResponseRedirect('tasks/')),
     url(r'^tasks/', include('taskapp.urls')),
     url(r'^admin/', include(admin.site.urls)),
 ]

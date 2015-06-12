@@ -59,7 +59,7 @@ We need to create the appropriate server configuration files to run the site. To
 ```
 # RUN THESE COMMANDS IN YOUR VM
 
-# then, run the site creation command
+# run the site creation command
 # notice that --force is used because the site directory already exists
 warpspeed site:create python warpspeed-django.dev --force
 ```
@@ -131,7 +131,7 @@ export DEBUG_MODE=True
 # save and exit
 ```
 
-Now, whenever you activate your virtualenv, all of your applications environment variables will be available so you can do things like run migrations, etc.
+Now, whenever you activate your virtualenv, all of your application's environment variables will be available so you can do things like run migrations, etc.
 
 ## Install Django and Run Migrations
 
@@ -225,3 +225,4 @@ Now, you can access http://warpspeed-django.dev/admin and log into the Django ad
 # License
 
 This sample project is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+

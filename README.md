@@ -135,7 +135,7 @@ Now, whenever you activate your virtualenv, all of your application's environmen
 
 ## Install Django and Run Migrations
 
-We need to install the django dependencies into our virtual environent and run our database migrations to create the required tables. To do so, perform the following:
+We need to install the django dependencies into our virtual environment and run our database migrations to create the required tables. To do so, perform the following:
 
 ```
 # RUN THESE COMMANDS IN YOUR VM

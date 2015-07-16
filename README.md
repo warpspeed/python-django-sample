@@ -147,7 +147,7 @@ cd ~/sites/warpspeed-django.dev
 source env/bin/activate
 
 # install django and other dependencies
-pip install django mysql-python
+pip install -r requirements.txt
 
 # run the database migrations
 python manage.py migrate

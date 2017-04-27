@@ -185,6 +185,12 @@ notepad C:\Windows\System32\Drivers\etc\hosts
 192.168.88.10  warpspeed-django.dev
 
 # save and exit
+
+# If you are using a different URL or IP, you will have to edit your settings.py document
+# Using your text editor of choice, go to line 28 and edit the ALLOWED_HOSTS array like so:
+ALLOWED_HOSTS =['your_IP', 'your_URL', 'name_of_your_VM']
+
+# Note: your VM name is 'localhost' by default
 ```
 
 Now, whenever you access "warpspeed-django.dev" in your web browser, you will be directed to your Django site within your VM.

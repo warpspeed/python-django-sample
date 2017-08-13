@@ -80,8 +80,11 @@ To create a virtual environment, perform the following:
 # make sure you are in the proper site directory
 cd ~/sites/warpspeed-django.dev
 
-# create the virtual environment
+# create the virtual environment (on mac/linux)
 virtualenv env
+
+# create the virtual environment (on windows)
+virtualenv env --always-copy
 ```
 
 You should now have a folder "env" within your "warpspeed-django.dev" directory.
@@ -172,10 +175,22 @@ To access your new Django site, you will need to add an entry to the hosts file 
 # open a terminal and run the following command (for Mac)
 sudo nano /etc/hosts
 
+# using git bash or similar, must be run as admin (windows)
+notepad /c/Windows/System32/Drivers/etc/hosts
+
+# using command prompt, must be run as admin (windows)
+notepad C:\Windows\System32\Drivers\etc\hosts
+
 # add a line that looks like this to the end of the file
 192.168.88.10  warpspeed-django.dev
 
 # save and exit
+
+# If you are using a different URL or IP, you will have to edit your settings.py document
+# Using your text editor of choice, go to line 28 and edit the ALLOWED_HOSTS array like so:
+ALLOWED_HOSTS =['your_IP', 'your_URL', 'name_of_your_VM']
+
+# Note: your VM name is 'localhost' by default
 ```
 
 Now, whenever you access "warpspeed-django.dev" in your web browser, you will be directed to your Django site within your VM.

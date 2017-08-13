@@ -14,10 +14,10 @@ def index(request):
     else:
         tasks = Task.objects.all()
         template = loader.get_template('taskapp/index.html')
-        context = RequestContext(request, {
+        context = {
             'tasks': tasks,
-        })
-        return HttpResponse(template.render(context))
+        }
+        return HttpResponse(template.render(context, request))
 
 
 def clear_complete(request):

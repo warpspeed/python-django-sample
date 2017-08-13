@@ -120,7 +120,7 @@ passenger_env_var DEBUG_MODE True;
 
 ### Configure Bash Environment
 
-In addition to making your environment variables accessible to Passenger, we also want them to be available via commands run at the command line. To do this, you will need to modify either your "~/.bashrc" or your "~/sites/warpspeed-django.dev/env/bin/activate" file. We recommend modifying the virtualenv activation file because it keeps your settings specific to this project. Perform the following:
+In addition to making your environment variables accessible to Passenger, we also want them to be available via commands run at the command line. To do this, you will need to modify either your "\~/.bashrc" or your "\~/sites/warpspeed-django.dev/env/bin/activate" file. We recommend modifying the virtualenv activation file because it keeps your settings specific to this project. Perform the following:
 
 ```
 # RUN THESE COMMANDS IN YOUR VM
